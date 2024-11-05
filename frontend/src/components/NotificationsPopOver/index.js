@@ -17,7 +17,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 import TicketListItem from "../TicketListItemCustom";
 import useTickets from "../../hooks/useTickets";
-import alertSound from "../../assets/sound.mp3";
+import alertSound from "../../assets/sound.ogg";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import { i18n } from "../../translate/i18n";
 import toastError from "../../errors/toastError";
