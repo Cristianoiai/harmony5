@@ -13,7 +13,7 @@ export const TransferTicketQueue = async (): Promise<void> => {
 
   const io = getIO();
 
-  //buscar os tickets que em pendentes e sem fila
+  // buscar os tickets que em pendentes e sem fila
   const tickets = await Ticket.findAll({
     where: {
       status: "pending",
