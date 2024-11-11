@@ -192,8 +192,12 @@ const Prompts = () => {
       {/* Box vermelha com o aviso */}
       <Paper className={classes.blackdBox} variant="outlined">
         <Typography variant="body1">
-          <strong>Aviso Importante:</strong> Para todos os usuários do Harmony que notaram uma interrupção no funcionamento do OpenAI, gostaríamos de esclarecer que isso não se trata de um erro do sistema. O OpenAI oferece um crédito gratuito de $5 USD para novos cadastros, porém, este benefício também está sujeito a um limite de tempo, geralmente em torno de três meses. Quando o crédito disponibilizado se esgota, é necessário recarregar a conta para continuar utilizando o serviço. É importante estar ciente dessa política para garantir uma experiência contínua e sem interrupções no uso do OpenAI com o Harmony. Se você notou que o serviço parou de funcionar, verifique se seu crédito gratuito expirou e considere a recarga da conta, se necessário. Estamos à disposição para ajudar e esclarecer quaisquer dúvidas adicionais que possam surgir. Obrigado pela compreensão e continuaremos trabalhando para oferecer o melhor serviço possível aos nossos usuários.
+          <strong>IMPORTANTE:</strong> O OpenAI oferece um crédito gratuito de $5 USD para novos cadastros, porém, este benefício também está sujeito a um limite de tempo, geralmente em torno de três meses.
+          <br>Quando o crédito disponibilizado se esgota, é necessário recarregar a conta para continuar utilizando o serviço. É importante estar ciente dessa política para garantir uma experiência contínua e sem interrupções no uso do OpenAI com o Harmony.
+          <br> Se você notou que o serviço parou de funcionar, verifique se seu crédito gratuito expirou e considere a recarga da conta, se necessário. 
+          <br>Estamos à disposição para ajudar e esclarecer quaisquer dúvidas adicionais que possam surgir.
         </Typography>
+
         {/* Links úteis */}
         <Typography variant="body1">
           <strong>Links Úteis:</strong>
