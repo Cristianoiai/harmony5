@@ -26,12 +26,13 @@ FILE_NAME="$2"
 
 # Caminho completo do arquivo
 BACKUP_FILE="$BACKUP_DIR/${DATE}-$FILE_NAME.dump"
+BACKUP_FILE_IMP="$BACKUP_DIR/$FILE_NAME.dump"
 
 # Exportando o banco de dados
 if [[ "$ACTION" == "-e" ]]; then
     export PGPASSWORD="$PG_PASSWORD"
     pg_dump -U "$PG_USER" -h "$PG_HOST" -p "$PG_PORT" -F c -d "$PG_DB" -f "$BACKUP_FILE"
-    
+
     # Compactando o backup
     gzip -f "$BACKUP_FILE"
     echo "Backup exportado com sucesso: ${BACKUP_FILE}.gz"
@@ -39,13 +40,13 @@ if [[ "$ACTION" == "-e" ]]; then
 # Importando um banco de dados
 elif [[ "$ACTION" == "-i" ]]; then
     # Verifica se o arquivo existe
-    if [[ ! -f "$BACKUP_FILE.gz" ]]; then
-        echo "Erro: Arquivo de backup não encontrado em $BACKUP_FILE.gz"
+    if [[ ! -f "$BACKUP_FILE_IMP.gz" ]]; then
+        echo "Erro: Arquivo de backup não encontrado em $BACKUP_FILE_IMP.gz"
         exit 1
     fi
 
     export PGPASSWORD="$PG_PASSWORD"
-    gunzip -c "$BACKUP_FILE.gz" | pg_restore --clean --if-exists -h "$PG_HOST" -U "$PG_USER" -d "$PG_DB"
+    gunzip -c "$BACKUP_FILE_IMP.gz" | pg_restore --clean --if-exists -h "$PG_HOST" -U "$PG_USER" -d "$PG_DB"
 
     echo "Backup importado com sucesso!"
 
