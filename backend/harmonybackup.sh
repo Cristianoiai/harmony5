@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# Configurações do PostgreSQL
-PG_USER="harmony"
-PG_HOST="localhost"
-PG_DB="harmony"
-PG_PORT="5432"
-PG_PASSWORD="pereira1976"
+# Caminho do arquivo .env
+ENV_FILE="$(dirname "$0")/.env"
 
-# Diretório de backup
+# Verifica se o arquivo .env existe
+if [[ ! -f "$ENV_FILE" ]]; then
+    echo "Erro: Arquivo .env não encontrado em $ENV_FILE"
+    exit 1
+fi
+
+# Exporta as variáveis do .env para o ambiente
+export $(grep -v '^#' "$ENV_FILE" | xargs)
+
+# Criar diretório de backup, se não existir
 BACKUP_DIR="/home/deploy/backups"
 mkdir -p "$BACKUP_DIR"
 
@@ -30,8 +35,8 @@ BACKUP_FILE_IMP="$BACKUP_DIR/$FILE_NAME.dump"
 
 # Exportando o banco de dados
 if [[ "$ACTION" == "-e" ]]; then
-    export PGPASSWORD="$PG_PASSWORD"
-    pg_dump -U "$PG_USER" -h "$PG_HOST" -p "$PG_PORT" -F c -d "$PG_DB" -f "$BACKUP_FILE"
+    export PGPASSWORD="$DB_PASS"
+    pg_dump -U "$DB_USER" -h "$DB_HOST" -p "$DB_PORT" -F c -d "$DB_NAME" -f "$BACKUP_FILE"
 
     # Compactando o backup
     gzip -f "$BACKUP_FILE"
@@ -45,8 +50,8 @@ elif [[ "$ACTION" == "-i" ]]; then
         exit 1
     fi
 
-    export PGPASSWORD="$PG_PASSWORD"
-    gunzip -c "$BACKUP_FILE_IMP.gz" | pg_restore --clean --if-exists -h "$PG_HOST" -U "$PG_USER" -d "$PG_DB"
+    export PGPASSWORD="$DB_PASS"
+    gunzip -c "$BACKUP_FILE_IMP.gz" | pg_restore --clean --if-exists -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME"
 
     echo "Backup importado com sucesso!"
 
