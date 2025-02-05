@@ -11,6 +11,8 @@ PG_PASSWORD="pereira1976"
 BACKUP_DIR="/home/deploy/backups"
 mkdir -p "$BACKUP_DIR"
 
+DATE=$(date +%Y%m%d)
+
 # Verifica se os argumentos foram passados corretamente
 if [[ $# -lt 2 ]]; then
     echo "Uso: $0 -e <nome_do_arquivo>  (Para exportar)"
@@ -23,7 +25,7 @@ ACTION="$1"
 FILE_NAME="$2"
 
 # Caminho completo do arquivo
-BACKUP_FILE="$BACKUP_DIR/$FILE_NAME.dump"
+BACKUP_FILE="$BACKUP_DIR/${DATE}-$FILE_NAME.dump"
 
 # Exportando o banco de dados
 if [[ "$ACTION" == "-e" ]]; then
